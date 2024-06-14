@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="inner-body">
+        <h1>Etch-a-Sketch</h1>
+        <div class="sidebar-and-container">
+            <div class="sidebar">
+                <label for="color-picker" class="color-picker">Choose a color:</label>
+                <input type="color" id="color-picker" name="color-picker" value="#ff0000">
+                <button class="sidebar-btn color-mode">Color Mode</button>
+                <button class="sidebar-btn rainbow-mode">Rainbow Mode</button>
+                <button class="sidebar-btn eraser">Eraser</button>
+                <button class="sidebar-btn clear">Clear</button>
+                <label for="grid-cell-range" class="grid-cell-range">32 &times; 32</label>
+                <input type="range" id="grid-cell-range" name="grid-cell-range" min="0" max="100" value="60">
+            </div>
+            <div class="container">
+                <div class="inner-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
