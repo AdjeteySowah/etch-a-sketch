@@ -50,6 +50,8 @@ buttons.forEach((button) => {
             }
             event.target.style.backgroundColor = colorInput.value;
             event.target.style.color = "rgb(255, 255, 255)";
+
+            randomlyColorOnMouseover();
         } else if (button.classList.contains("eraser")) {
             for(let i = 0; i < buttonsNot3rdOne.length; i++) {
                 buttonsNot3rdOne[i].style.backgroundColor = "rgb(255, 255, 255)";
@@ -68,23 +70,40 @@ buttons.forEach((button) => {
             }
             event.target.style.backgroundColor = colorInput.value;
             event.target.style.color = "rgb(255, 255, 255)";
+
+            clearDrawingPad();
         } 
     });
 });
 
-function decolorize(event) {
-    let gridCells = document.querySelectorAll(".grid-cell");
-    gridCells.forEach((gridCell) => {
-        gridCell.classList.remove("new-color");
-    });
+    // for color mode btn
+function color(event) {
+    event.target.style.backgroundColor = colorInput.value;
+}
 
+    // for rainbow mode btn
+function randomlyColor(event) {
+    let rgbRed = Math.floor(Math.random() * 255) + 1;
+    let rgbGreen = Math.floor(Math.random() * 255) + 1;
+    let rgbBlue = Math.floor(Math.random() * 255) + 1;
+    let rgb = "rgb" + "(" + rgbRed + ", " + rgbGreen + ", " + rgbBlue + ")";
+    
+    event.target.style.backgroundColor = rgb;
+}
+
+    // for eraser btn
+function decolorize(event) {
     event.target.style.backgroundColor = "rgb(255, 255, 255)";
 }
 
-function decolorizeOnMouseover() {
+    // for clear btn
+function clearDrawingPad() {
     let gridCells = document.querySelectorAll(".grid-cell");
     gridCells.forEach((gridCell) => {
-        gridCell.addEventListener("mouseover", decolorize);
+        gridCell.style.backgroundColor = "rgb(255, 255, 255)";
+        gridCell.removeEventListener("mouseover", color);
+        gridCell.removeEventListener("mouseover", randomlyColor);
+        gridCell.removeEventListener("mouseover", decolorize);
     });
 }
 
@@ -93,22 +112,32 @@ function decolorizeOnMouseover() {
 
 let gridCellsContainer = document.querySelector(".inner-container");    
 
-function color(event) {
-    let gridCells = document.querySelectorAll(".grid-cell");
-    gridCells.forEach((gridCell) => {
-        gridCell.classList.remove("new-color");
-    });
-
-    event.target.style.backgroundColor = colorInput.value;
-    event.target.classList.add("new-color");
-}
-
 function colorOnMouseover() {
     let gridCells = document.querySelectorAll(".grid-cell");
     gridCells.forEach((gridCell) => {
+        gridCell.removeEventListener("mouseover", randomlyColor);
+        gridCell.removeEventListener("mouseover", decolorize);
         gridCell.addEventListener("mouseover", color);
     });
-}    
+}
+
+function randomlyColorOnMouseover() {
+    let gridCells = document.querySelectorAll(".grid-cell");
+    gridCells.forEach((gridCell) => {
+        gridCell.removeEventListener("mouseover", decolorize);
+        gridCell.removeEventListener("mouseover", color);
+        gridCell.addEventListener("mouseover", randomlyColor);
+    });
+}
+
+function decolorizeOnMouseover() {
+    let gridCells = document.querySelectorAll(".grid-cell");
+    gridCells.forEach((gridCell) => {
+        gridCell.removeEventListener("mouseover", color);
+        gridCell.removeEventListener("mouseover", randomlyColor);
+        gridCell.addEventListener("mouseover", decolorize);
+    });
+}
     
 function createDefaultGrids () {
     for (let i = 1; i <= 400; i++) {
@@ -118,8 +147,6 @@ function createDefaultGrids () {
                                   height: 24px;`;
         gridCellsContainer.appendChild(gridCell);
     }
-
-    // colorOnMouseover();
 }
 
 createDefaultGrids();
@@ -177,11 +204,6 @@ function updateRGN () {
             gridCellsContainer.appendChild(gridCell);
         }
     }
-
-    // colorOnMouseover();
 }
-
-
-// || CROSS-SECTIONAL IMPACT
 
 range.addEventListener("input", updateRGN);
