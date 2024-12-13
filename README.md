@@ -34,3 +34,4 @@ This project is part of [theOdinProject foundations course](https://www.theodinp
 - JavaScript
 
 Enjoy your drawing with the Etch-a-Sketch web application!
+[Live website](https://adjeteysowah.github.io/etch-a-sketch/)
