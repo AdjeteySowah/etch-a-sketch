@@ -34,4 +34,5 @@ This project is part of [theOdinProject foundations course](https://www.theodinp
 - JavaScript
 
 Enjoy your drawing with the Etch-a-Sketch web application!
+Note: It's not responsive. Designed for larger screens.
 [Live website](https://adjeteysowah.github.io/etch-a-sketch/)
